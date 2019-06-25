@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 
 import cn.finalteam.rxgalleryfinal.imageloader.rotate.RotateTransformation;
 import cn.finalteam.rxgalleryfinal.ui.widget.FixImageView;
@@ -44,19 +45,18 @@ public class GlideImageLoader implements AbsImageLoader {
                     .placeholder(defaultDrawable)
                     .error(defaultDrawable)
                     .override(width, height)
-                    .crossFade()
-                    .transform(new RotateTransformation(context, rotate))
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .transform(new RotateTransformation(rotate))
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .into(imageView);
         } else {
             Glide
                     .with(context)
                     .load(path)
-                    .asBitmap()
                     .placeholder(defaultDrawable)
                     .error(defaultDrawable)
                     .override(width, height)
-                    .transform(new RotateTransformation(context, rotate))
+                    .transform(new RotateTransformation(rotate))
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .into(imageView);
         }
